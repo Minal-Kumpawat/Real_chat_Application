@@ -48,7 +48,7 @@ io.on('connection', socket => {
 });
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.status(200).json({message:"Radhe radhe"})
 });
 
 app.listen(port, () => {
