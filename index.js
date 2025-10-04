@@ -5,8 +5,10 @@ const port = 2563;
 
 // create socket.io server
 const io = require("socket.io")(8000, {
-    cors: {
-        origin: "*",
+    cors:{
+        origin: "https://your-frontend.vercel.app",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
     }
 });
 
@@ -24,7 +26,7 @@ io.on('connection', socket => {
         socket.broadcast.emit('user-join', name);
 
         // also send notification
-        socket.broadcast.emit('notification', {type: "join", text: `${name} joined the chat`});
+        socket.broadcast.emit('notification', { type: "join", text: `${name} joined the chat` });
     });
 
     socket.on('send', message => {
@@ -32,7 +34,7 @@ io.on('connection', socket => {
         socket.broadcast.emit('receive', { message: message, name: users[socket.id] });
 
         // send notification
-        socket.broadcast.emit('notification', {type: "message", text: `${users[socket.id]} sent: ${message}`});
+        socket.broadcast.emit('notification', { type: "message", text: `${users[socket.id]} sent: ${message}` });
     });
 
     socket.on('disconnect', () => {
@@ -40,7 +42,7 @@ io.on('connection', socket => {
             socket.broadcast.emit('left', `${users[socket.id]} left the chat`);
 
             // also send notification
-            socket.broadcast.emit('notification', {type: "leave", text: `${users[socket.id]} left the chat`});
+            socket.broadcast.emit('notification', { type: "leave", text: `${users[socket.id]} left the chat` });
 
             delete users[socket.id];
         }
@@ -48,7 +50,7 @@ io.on('connection', socket => {
 });
 
 app.get("/", (req, res) => {
-    res.status(200).json({message:"Radhe radhe"})
+    res.status(200).json({ message: "Radhe radhe" })
 });
 
 app.listen(port, () => {
