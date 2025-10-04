@@ -6,7 +6,7 @@ const port = 2563;
 // create socket.io server
 const io = require("socket.io")(8000, {
     cors:{
-        origin: "https://your-frontend.vercel.app",
+        origin: "https://real-chat-application-bice.vercel.app/",
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     }
