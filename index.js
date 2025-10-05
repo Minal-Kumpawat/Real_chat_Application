@@ -3,6 +3,10 @@ const app = express();
 const path = require("path");
 const port = 2563;
 
+app.use(cors({
+  origin: ["https://real-chat-application-frontend.vercel.app"], // ✅ your Vercel frontend
+  methods: ["GET", "POST"]
+}));
 // create socket.io server
 const io = require("socket.io")(8000, {
     cors:{
