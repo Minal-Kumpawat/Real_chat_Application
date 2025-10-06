@@ -4,10 +4,20 @@ const path = require("path");
 const port = 2563;
 const { Server } = require("socket.io");
 
-app.use(cors({
-  origin: ["https://real-chat-application-frontend.vercel.app"], // ✅ your Vercel frontend
-  methods: ["GET", "POST"]
-}));
+const allowedOrigins = [
+  "https://real-chat-application-frontend.vercel.app",
+  "http://localhost:5173"
+];
+
+// ✅ Apply CORS for REST APIs
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+
 // create socket.io server
 // const io = require("socket.io")(8000, {
 //     cors:{
@@ -21,7 +31,7 @@ app.use(cors({
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["https://real-chat-application-frontend.vercel.app"], // ✅ allow only frontend origin
+    origin: allowedOrigins, // ✅ allow only frontend origin
     methods: ["GET", "POST"]
   }
 });
