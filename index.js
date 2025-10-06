@@ -2,18 +2,28 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const port = 2563;
+const { Server } = require("socket.io");
 
 app.use(cors({
   origin: ["https://real-chat-application-frontend.vercel.app"], // ✅ your Vercel frontend
   methods: ["GET", "POST"]
 }));
 // create socket.io server
-const io = require("socket.io")(8000, {
-    cors:{
-        origin: "https://real-chat-application-frontend.vercel.app/",
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
+// const io = require("socket.io")(8000, {
+//     cors:{
+//         origin: "https://real-chat-application-frontend.vercel.app/",
+//         methods: ["GET", "POST", "PUT", "DELETE"],
+//         credentials: true
+//     }
+// });
+
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: ["https://real-chat-application-frontend.vercel.app"], // ✅ allow only frontend origin
+    methods: ["GET", "POST"]
+  }
 });
 
 // serve frontend files
