@@ -3,7 +3,8 @@ const app = express();
 const path = require("path");
 const port = 2563;
 const { Server } = require("socket.io");
-
+const cors = require("cors")
+const http=require("http")
 const allowedOrigins = [
   "https://real-chat-application-frontend.vercel.app",
   "http://localhost:5173"
