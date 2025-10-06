@@ -12,7 +12,7 @@ const allowedOrigins = [
 // ✅ Apply CORS for REST APIs
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: ["https://real-chat-application-frontend.vercel.app", "http://localhost:5173"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -31,7 +31,7 @@ app.use(
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins, // ✅ allow only frontend origin
+    origin:["https://real-chat-application-frontend.vercel.app", "http://localhost:5173"], // ✅ allow only frontend origin
     methods: ["GET", "POST"]
   }
 });
